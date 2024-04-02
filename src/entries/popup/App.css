@@ -1,0 +1,26 @@
+main {
+  font-family: Arial, sans-serif; /* Amiri is a classical Arabic typeface, well-suited for reading */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  background-color: #f5f5f5; /* A light background to reduce eye strain */
+  padding: 4px; /* Adds some padding around the textarea */
+}
+
+textarea {
+  width: 750px;
+  font-family: Arial, sans-serif; /* Amiri is a classical Arabic typeface, well-suited for reading */
+  height: auto; /* Adjusts based on content */
+  font-size: 14px; /* Larger font size for better readability */
+  line-height: 1.2; /* Improved line spacing for Arabic text */
+  direction: rtl; /* Right-to-left text direction */
+  border: 1px solid #ced4da; /* Subtle border style */
+  border-radius: 0.25rem; /* Rounded corners */
+  padding: 2px; /* Padding inside the textarea */
+  background-color: #fff; /* White background for the textarea */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Soft shadow for depth */
+  resize: vertical; /* Allows vertical resizing */
+  margin: auto; /* Centers the textarea horizontally */
+  display: block; /* Ensures the textarea is a block element */
+}
