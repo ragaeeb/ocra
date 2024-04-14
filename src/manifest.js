@@ -13,7 +13,13 @@ const manifest = {
     background: {
         service_worker: 'src/entries/background/main.js',
     },
-    host_permissions: ['*://*/*'],
+    content_scripts: [
+        {
+            js: ['src/entries/content/main.js'],
+            matches: ['<all_urls>'],
+        },
+    ],
+    host_permissions: ['<all_urls>'],
     icons: {
         16: 'icons/16.png',
         19: 'icons/19.png',
@@ -30,7 +36,7 @@ const manifest = {
         open_in_tab: true,
         page: 'src/entries/options/index.html',
     },
-    permissions: ['contextMenus', 'storage', 'tabs'],
+    permissions: ['activeTab', 'contextMenus', 'storage', 'tabs'],
 };
 
 export function getManifest() {
