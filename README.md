@@ -1,27 +1,15 @@
-# ocrx
+# ocra
 
-This template should help get you started developing a react web extension in Vite.
+This is a browser extension to be able to easily call custom API endpoints to OCR something on the browser and get the results.
+
+You can either select a cropped area of the entire page, an existing image by link, paste an image from clipboard, or select the actual image data.
 
 ## Usage Notes
 
-The extension manifest is defined in `src/manifest.js` and used by `@samrum/vite-plugin-web-extension` in the vite config.
-
-Background, content scripts, options, and popup entry points exist in the `src/entries` directory. 
-
-Content scripts are rendered by `src/entries/contentScript/renderContent.js` which renders content within a ShadowRoot
-and handles style injection for HMR and build modes.
-
-Otherwise, the project functions just like a regular Vite project.
-
-
-
-HMR during development in Manifest V3 requires Chromium version >= 110.0.5480.0.
-
 Refer to [@samrum/vite-plugin-web-extension](https://github.com/samrum/vite-plugin-web-extension) for more usage notes.
 
-## Customize configuration
+In the extension options you will have to define your endpoint URLs.
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ## Project Setup
 
