@@ -47,12 +47,11 @@ jobs:
 
       - name: Zip extension
         run: |
-          mkdir -p output
-          cd dist
-          zip -r ../output/ocra-extension-${{ env.VERSION }}.zip .
+            cd dist
+            zip -r ../output/ocra-extension-${{ env.VERSION }}.zip .
 
-          - name: Add all changes to git
-          run: |
+      - name: Add all changes to git
+        run: |
             git add -A
   
       - name: Commit changes
