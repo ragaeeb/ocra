@@ -1,53 +1,7 @@
 # ocra
 
-This is a browser extension to be able to easily call custom API endpoints to OCR something on the browser and get the results.
+[![wakatime](https://wakatime.com/badge/user/a0b906ce-b8e7-4463-8bce-383238df6d4b/project/58624615-104c-4910-9245-ff6a17984295.svg)](https://wakatime.com/badge/user/a0b906ce-b8e7-4463-8bce-383238df6d4b/project/58624615-104c-4910-9245-ff6a17984295) ![GitHub](https://img.shields.io/github/license/ragaeeb/ocra) ![npm](https://img.shields.io/npm/v/ocra) ![npm](https://img.shields.io/npm/dm/ocra) ![GitHub issues](https://img.shields.io/github/issues/ragaeeb/ocra) ![GitHub stars](https://img.shields.io/github/stars/ragaeeb/ocra?style=social) ![GitHub Release](https://img.shields.io/github/v/release/ragaeeb/ocra)
 
-You can either select a cropped area of the entire page, an existing image by link, paste an image from clipboard, or select the actual image data.
+This project allows for setting up a browser extension to hook up image actions to OCR endpoints.
 
-## Usage Notes
-
-Refer to [@samrum/vite-plugin-web-extension](https://github.com/samrum/vite-plugin-web-extension) for more usage notes.
-
-In the extension options you will have to define your endpoint URLs.
-
-
-## Project Setup
-
-```sh
-npm install
-```
-
-## Commands
-### Build
-#### Development, HMR
-
-Hot Module Reloading is used to load changes inline without requiring extension rebuilds and extension/page reloads
-Currently only works in Chromium based browsers.
-```sh
-npm run dev
-```
-
-#### Development, Watch
-
-Rebuilds extension on file changes. Requires a reload of the extension (and page reload if using content scripts)
-```sh
-npm run watch
-```
-
-#### Production
-
-Minifies and optimizes extension build
-```sh
-npm run build
-```
-
-### Load extension in browser
-
-Loads the contents of the dist directory into the specified browser
-```sh
-npm run serve:chrome
-```
-
-```sh
-npm run serve:firefox
-```
+Once you run the extension you need to go to the extension options to set up the endpiont that will get triggered.
