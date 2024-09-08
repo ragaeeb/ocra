@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "bump-version": "pnpm version patch -m 'Bump version to %s'",
     "lint": "eslint .",
     "preview": "vite preview"
   },
