@@ -59,17 +59,16 @@ jobs:
             zip -r ../output/ocra-extension-${{ env.VERSION }}.zip ./*
             cd ..
 
+      - name: Install GitHub CLI
+        run: sudo apt-get install gh
+
       - name: Create Release
         id: create_release
-        uses: gh-cli/gh-action@v2
-        with:
-          args: |
-            release create v${{ env.VERSION }} output/ocra-extension-${{ env.VERSION }}.zip --title "Release ${{ env.VERSION }}" --notes "Automated release for version ${{ env.VERSION }}"
+        run: |
+          gh auth login --with-token <<< ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_ID=$(gh release create v${{ env.VERSION }} output/ocra-extension-${{ env.VERSION }}.zip --title "Release ${{ env.VERSION }}" --notes "Automated release for version ${{ env.VERSION }}" --json id -q '.id')
+          echo "RELEASE_ID=$RELEASE_ID" >> $GITHUB_ENV
 
       - name: Upload ZIP as release asset
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: output/ocra-extension-${{ env.VERSION }}.zip
-          asset_name: ocra-extension-${{ env.VERSION }}.zip
-          asset_content_type: application/zip
+        run: |
+          gh release upload v${{ env.VERSION }} output/ocra-extension-${{ env.VERSION }}.zip --clobber
