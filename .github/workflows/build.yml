@@ -65,6 +65,11 @@ jobs:
       - name: Authenticate GitHub CLI
         run: gh auth login --with-token <<< ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Push tag to remote
+        run: |
+          git tag v${{ env.VERSION }}
+          git push origin v${{ env.VERSION }}
+
       - name: Create Release
         id: create_release
         run: |
