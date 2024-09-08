@@ -51,18 +51,23 @@ jobs:
           cd dist
           zip -r ../output/ocra-extension-${{ env.VERSION }}.zip .
 
+          - name: Add all changes to git
+          run: |
+            git add -A
+  
+      - name: Commit changes
+        run: |
+            git commit -m "Bump version to ${{ env.VERSION }}"
+        continue-on-error: true  # To handle cases where there might be no changes to commit
+  
+      - name: Push changes
+        run: git push
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
       - name: Upload ZIP as artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ocra-extension-${{ env.VERSION }}
-          path: output/ocra-extension-${{ env.VERSION }}.zip
-
-      - name: Push version bump commit
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git add package.json pnpm-lock.yaml
-          git commit -m "Bump version"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            name: ocra-extension-${{ env.VERSION }}
+            path: output/ocra-extension-${{ env.VERSION }}.zip
+  
