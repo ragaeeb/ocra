@@ -65,24 +65,18 @@ jobs:
       - name: Authenticate GitHub CLI
         run: gh auth login --with-token <<< ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Check if tag exists on remote
-        id: check_tag
+      - name: Ensure tag is pushed to remote
+        id: push_tag
         run: |
           git fetch --tags
           if git rev-parse "v${{ env.VERSION }}" >/dev/null 2>&1; then
-            echo "Tag v${{ env.VERSION }} exists on remote."
-            echo "TAG_EXISTS=true" >> $GITHUB_ENV
+            echo "Tag v${{ env.VERSION }} exists locally."
+            git push origin v${{ env.VERSION }} || echo "Tag v${{ env.VERSION }} already exists on remote."
           else
-            echo "Tag v${{ env.VERSION }} does not exist on remote."
-            echo "TAG_EXISTS=false" >> $GITHUB_ENV
+            echo "Tag v${{ env.VERSION }} does not exist locally, creating and pushing it."
+            git tag v${{ env.VERSION }}
+            git push origin v${{ env.VERSION }}
           fi
-
-      - name: Push tag to remote
-        if: env.TAG_EXISTS == 'false'
-        run: |
-          git tag v${{ env.VERSION }}
-          git push origin v${{ env.VERSION }}
-
 
       - name: Create Release
         id: create_release
