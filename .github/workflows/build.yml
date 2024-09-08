@@ -48,13 +48,25 @@ jobs:
           VERSION=$(node -p "require('./package.json').version")
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
+      - name: Verify dist directory
+        run: ls -alh dist
+
+      - name: Create output directory
+        run: mkdir -p output
+
       - name: Zip extension
         run: |
-            ls -la
             cd dist
-            mkdir -p ../output
-            ls -la ../output
             zip -r ../output/ocra-extension-${{ env.VERSION }}.zip .
+
+      - name: List output directory
+        run: ls -alh output
+
+      - name: Upload ZIP as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ocra-extension-${{ env.VERSION }}
+          path: output/ocra-extension-${{ env.VERSION }}.zip
 
       - name: Add all changes to git
         run: |
@@ -69,10 +81,3 @@ jobs:
         run: git push
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  
-      - name: Upload ZIP as artifact
-        uses: actions/upload-artifact@v3
-        with:
-            name: ocra-extension-${{ env.VERSION }}
-            path: output/ocra-extension-${{ env.VERSION }}.zip
-  
