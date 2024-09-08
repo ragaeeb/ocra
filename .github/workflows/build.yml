@@ -49,6 +49,8 @@ jobs:
         run: |
             ls -la
             cd dist
+            mkdir -p ../output
+            ls -la ../output
             zip -r ../output/ocra-extension-${{ env.VERSION }}.zip .
 
       - name: Add all changes to git
