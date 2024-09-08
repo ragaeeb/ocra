@@ -47,6 +47,7 @@ jobs:
 
       - name: Zip extension
         run: |
+            ls -la
             cd dist
             zip -r ../output/ocra-extension-${{ env.VERSION }}.zip .
 
