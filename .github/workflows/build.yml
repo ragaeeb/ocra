@@ -1,12 +1,11 @@
-name: Build and Zip Chrome Extension
+name: Publish Chrome Extension
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:  # This allows manual triggering of the workflow from the GitHub Actions tab
 
 permissions:
   contents: write  # This gives the workflow permission to push to the repository
+  packages: write  # This is needed to create releases
 
 jobs:
   build:
@@ -57,27 +56,20 @@ jobs:
       - name: Zip extension
         run: |
             cd dist
-            zip -r ../output/ocra-extension-${{ env.VERSION }}.zip .
+            zip -r ../output/ocra-extension-${{ env.VERSION }}.zip ./*
+            cd ..
 
-      - name: List output directory
-        run: ls -alh output
-
-      - name: Upload ZIP as artifact
-        uses: actions/upload-artifact@v4
+      - name: Create Release
+        id: create_release
+        uses: gh-cli/gh-action@v2
         with:
-          name: ocra-extension-${{ env.VERSION }}
-          path: output/ocra-extension-${{ env.VERSION }}.zip
+          args: |
+            release create v${{ env.VERSION }} output/ocra-extension-${{ env.VERSION }}.zip --title "Release ${{ env.VERSION }}" --notes "Automated release for version ${{ env.VERSION }}"
 
-      - name: Add all changes to git
-        run: |
-            git add -A
-  
-      - name: Commit changes
-        run: |
-            git commit -m "Bump version to ${{ env.VERSION }}"
-        continue-on-error: true  # To handle cases where there might be no changes to commit
-  
-      - name: Push changes
-        run: git push
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload ZIP as release asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: output/ocra-extension-${{ env.VERSION }}.zip
+          asset_name: ocra-extension-${{ env.VERSION }}.zip
+          asset_content_type: application/zip
