@@ -62,12 +62,13 @@ jobs:
       - name: Install GitHub CLI
         run: sudo apt-get install gh
 
+      - name: Authenticate GitHub CLI
+        run: gh auth login --with-token <<< ${{ secrets.GITHUB_TOKEN }}
+
       - name: Create Release
         id: create_release
         run: |
-          gh auth login --with-token <<< ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_ID=$(gh release create v${{ env.VERSION }} output/ocra-extension-${{ env.VERSION }}.zip --title "Release ${{ env.VERSION }}" --notes "Automated release for version ${{ env.VERSION }}" --json id -q '.id')
-          echo "RELEASE_ID=$RELEASE_ID" >> $GITHUB_ENV
+          gh release create v${{ env.VERSION }} output/ocra-extension-${{ env.VERSION }}.zip --title "Release ${{ env.VERSION }}" --notes "Automated release for version ${{ env.VERSION }}"
 
       - name: Upload ZIP as release asset
         run: |
