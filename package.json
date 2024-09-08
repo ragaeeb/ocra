@@ -1,6 +1,6 @@
 {
   "name": "ocra",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "displayName": "OCRA",
   "author": "Ragaeeb Haq",
   "description": "A browser extension to hook up common browser actions to do lookups to remote endpoints",
