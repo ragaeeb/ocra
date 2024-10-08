@@ -36,7 +36,7 @@ const manifest = {
         open_in_tab: true,
         page: 'src/entries/options/index.html',
     },
-    permissions: ['activeTab', 'contextMenus', 'storage', 'tabs'],
+    permissions: ['contextMenus', 'storage', 'tabs'],
 };
 
 export function getManifest() {
