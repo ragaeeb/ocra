@@ -10,10 +10,8 @@ import globals from 'globals';
 export default [
     perfectionist.configs['recommended-natural'],
     {
-        ignores: ['dist', 'src/public/*', '**/public/*', 'node_modules/*', '**/node_modules/*', '.ebextensions/*'],
-    },
-    {
         files: ['**/*.{js,mjs,cjs,jsx,ts,tsx}'],
+        ignores: ['dist', 'src/public/*', '**/public/*', 'node_modules/*', '**/node_modules/*', '.ebextensions/*'],
         languageOptions: {
             ecmaVersion: 'latest',
             globals: {
@@ -39,7 +37,7 @@ export default [
             'react/jsx-no-target-blank': 'off',
         },
         settings: {
-            react: { version: '18.3' }, // React version setting
+            react: { version: '19' }, // React version setting
         },
     },
     eslintConfigPrettier,
