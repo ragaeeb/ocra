@@ -68,6 +68,21 @@ const handleCapturePageArea = (info, tab) => {
     browser.tabs.sendMessage(tab.id, { command: 'activateSelectionCapture' });
 };
 
+const handleCaptureVisiblePage = async (info, tab) => {
+    try {
+        // Ensure we have a valid window ID
+        const windowId = tab?.windowId && tab.windowId !== -1 ? tab.windowId : (await browser.windows.getCurrent()).id;
+
+        // Capture the visible portion of the tab
+        const dataUrl = await browser.tabs.captureVisibleTab(windowId, { format: 'png' });
+
+        // Open a new tab displaying the captured image using a data URL
+        await browser.tabs.create({ url: dataUrl });
+    } catch (error) {
+        console.error('Error capturing visible page:', error);
+    }
+};
+
 export const ocrSelectedArea = async ({ x1, x2, y1, y2 }, tab) => {
     try {
         log('Capture screenshot');
@@ -99,5 +114,10 @@ export const CONTEXT_ACTIONS = {
         contexts: ['image'],
         handler: handleOCRImageUrl,
         title: 'Image URL',
+    },
+    VISIBLE_CAPTURE: {
+        contexts: ['all'],
+        handler: handleCaptureVisiblePage,
+        title: 'Screenshot Visible',
     },
 };
